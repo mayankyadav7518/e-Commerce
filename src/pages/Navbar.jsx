@@ -104,6 +104,14 @@ export default function GuestNavbar() {
                 Register
               </button>
             </div>
+            <div>
+              <button
+                onClick={() => navigate("/admin-login")}
+                className="px-4 py-2 bg-teal-600 text-white font-medium rounded-lg hover:bg-teal-700 transition-colors shadow-sm"
+              >
+                Admin Login
+              </button>
+            </div>
           </div>
 
           {/* Mobile Menu Toggle */}
