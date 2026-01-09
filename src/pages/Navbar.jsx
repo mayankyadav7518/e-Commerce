@@ -211,6 +211,16 @@ export default function GuestNavbar() {
             Create Account
           </button>
 
+          <button
+            onClick={() => {
+              setIsMobileOpen(false);
+              navigate("/admin-login");
+            }}
+            className="w-full px-4 py-2 bg-teal-600 text-white font-medium rounded-lg hover:bg-teal-700 transition-colors"
+          >
+            Admin Login
+          </button>
+
           {/* Small hint for wishlist/cart */}
           <p className="text-center text-sm text-gray-500 mt-4">
             Login to use wishlist & save your cart
