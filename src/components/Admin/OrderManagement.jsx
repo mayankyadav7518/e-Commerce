@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Back from "../Back";
 
 const mockOrders = [
   {
@@ -18,7 +19,11 @@ const mockOrders = [
     paymentMethod: "Visa ending 4242",
     transactionId: "tx_123456789abc",
     items: [
-      { name: "Premium Leather Jacket", desc: "Size: M • Black", price: "$249.00" },
+      {
+        name: "Premium Leather Jacket",
+        desc: "Size: M • Black",
+        price: "$249.00",
+      },
       { name: "Minimalist Watch", desc: "Silver", price: "$129.00" },
     ],
   },
@@ -35,14 +40,14 @@ const mockOrders = [
 ];
 
 export default function OrdersManagement() {
-  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedOrder, setSelectedOrder] = useState(mockOrders[0]);
   const [showMobileDetails, setShowMobileDetails] = useState(false);
-  
 
   const handleSelectOrder = (order) => {
     setSelectedOrder(order);
     // On mobile → show full screen details
-    if (window.innerWidth < 1024) { // lg breakpoint
+    if (window.innerWidth < 1024) {
+      // lg breakpoint
       setShowMobileDetails(true);
     }
   };
@@ -55,25 +60,22 @@ export default function OrdersManagement() {
     if (!order) return null;
 
     return (
-      <div className={`bg-white rounded-lg shadow-sm border border-gray-200 p-5 sm:p-6 overflow-y-auto
-        ${isMobile ? "min-h-screen" : "h-full"}`}>
+      <div
+        className={`bg-white rounded-lg shadow-sm border border-gray-200 p-5 sm:p-6 overflow-y-auto
+        ${isMobile ? "min-h-screen" : "h-full"}`}
+      >
         {/* Header */}
         <div className="flex items-center justify-between mb-6 gap-3">
           <div className="flex items-center gap-3">
-            {isMobile && (
-              <button
-                onClick={closeMobileDetails}
-                className="lg:hidden text-gray-600 hover:text-gray-900"
-              >
-                ← Back
-              </button>
-            )}
+            {isMobile && <Back onClick={closeMobileDetails} />}
             <h3 className="text-lg font-semibold text-gray-800">
               Order {order.id}
             </h3>
           </div>
           <span className="flex items-center space-x-2 whitespace-nowrap">
-            <span className={`w-2 h-2 rounded-full bg-${order.dotColor}-500`}></span>
+            <span
+              className={`w-2 h-2 rounded-full bg-${order.dotColor}-500`}
+            ></span>
             <span className="text-sm font-medium">{order.status}</span>
           </span>
         </div>
@@ -91,8 +93,13 @@ export default function OrdersManagement() {
             </div>
           </div>
           <div className="space-y-2 text-sm text-gray-600">
-            <p><span className="font-medium">Phone:</span> {order.phone || "—"}</p>
-            <p><span className="font-medium">Shipping:</span> {order.address || "—"}</p>
+            <p>
+              <span className="font-medium">Phone:</span> {order.phone || "—"}
+            </p>
+            <p>
+              <span className="font-medium">Shipping:</span>{" "}
+              {order.address || "—"}
+            </p>
           </div>
         </div>
 
@@ -114,7 +121,9 @@ export default function OrdersManagement() {
             )}
             <div className="flex justify-between">
               <span className="text-gray-600">Status</span>
-              <span className="text-green-600 font-medium">{order.payment}</span>
+              <span className="text-green-600 font-medium">
+                {order.payment}
+              </span>
             </div>
           </div>
         </div>
@@ -130,7 +139,9 @@ export default function OrdersManagement() {
                 <div className="flex items-center space-x-3 flex-1 min-w-0">
                   <div className="w-12 h-12 bg-gray-200 rounded-lg shrink-0" />
                   <div className="min-w-0">
-                    <p className="font-medium text-gray-900 truncate">{item.name}</p>
+                    <p className="font-medium text-gray-900 truncate">
+                      {item.name}
+                    </p>
                     <p className="text-xs text-gray-500">{item.desc}</p>
                   </div>
                 </div>
@@ -184,23 +195,42 @@ export default function OrdersManagement() {
 
   return (
     <div className="h-full">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 h-full">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-2 h-full">
         {/* Orders List */}
-        <div className={`lg:col-span-2 ${showMobileDetails ? "hidden" : "block"} h-full overflow-y-auto space-y-6 pr-2`}>
+        <div
+          className={`lg:col-span-2 ${
+            showMobileDetails ? "hidden" : "block"
+          } h-full overflow-y-auto space-y-6 pr-2`}
+        >
           {/* Filters */}
-          <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            {/* Search */}
             <input
               type="text"
               placeholder="Search order ID, customer..."
-              className="flex-1 min-w-full sm:min-w-64 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full sm:flex-1 px-4 py-2 text-sm border border-gray-300 rounded-lg
+               focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
-            <select className="w-full sm:w-auto px-4 py-2.5 border border-gray-300 rounded-lg">
-              <option>All Status</option>
-            </select>
-            <select className="w-full sm:w-auto px-4 py-2.5 border border-gray-300 rounded-lg">
-              <option>Last 30 Days</option>
-            </select>
-            <button className="w-full sm:w-auto px-6 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 font-medium">
+
+            {/* Filters */}
+            <div className="flex w-full gap-2 sm:w-auto">
+              <select
+                className="flex-1 sm:w-36 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+              >
+                <option>All Status</option>
+              </select>
+
+              <select
+                className="flex-1 sm:w-40 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+              >
+                <option>Last 30 Days</option>
+              </select>
+            </div>
+
+            {/* Export Button */}
+            <button
+              className="w-full sm:w-auto px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 font-medium transition"
+            >
               Export
             </button>
           </div>
@@ -211,7 +241,14 @@ export default function OrdersManagement() {
               <table className="w-full min-w-160">
                 <thead className="bg-gray-50 border-b border-gray-200">
                   <tr>
-                    {["Order ID", "Customer", "Date", "Total", "Payment", "Status"].map((h) => (
+                    {[
+                      "Order ID",
+                      "Customer",
+                      "Date",
+                      "Total",
+                      "Payment",
+                      "Status",
+                    ].map((h) => (
                       <th
                         key={h}
                         className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
@@ -241,7 +278,9 @@ export default function OrdersManagement() {
                           </span>
                         </div>
                       </td>
-                      <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">{order.date}</td>
+                      <td className="px-4 py-4 text-sm text-gray-500 whitespace-nowrap">
+                        {order.date}
+                      </td>
                       <td className="px-4 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                         {order.total}
                       </td>
@@ -258,8 +297,12 @@ export default function OrdersManagement() {
                       </td>
                       <td className="px-4 py-4">
                         <span className="flex items-center space-x-2 whitespace-nowrap">
-                          <span className={`w-2 h-2 rounded-full bg-${order.dotColor}-500`}></span>
-                          <span className="text-sm text-gray-900">{order.status}</span>
+                          <span
+                            className={`w-2 h-2 rounded-full bg-${order.dotColor}-500`}
+                          ></span>
+                          <span className="text-sm text-gray-900">
+                            {order.status}
+                          </span>
                         </span>
                       </td>
                     </tr>

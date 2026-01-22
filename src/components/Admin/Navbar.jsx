@@ -81,7 +81,7 @@ const Navbar = ({ toggleSidebar }) => {
             <img
               src="https://randomuser.me/api/portraits/men/32.jpg"
               alt="Admin"
-              className="w-9 h-9 rounded-full object-cover ring-2 ring-gray-200"
+              className="w-12 h-9 rounded-full object-cover ring-2 ring-gray-200"
             />
           </div>
         </div>

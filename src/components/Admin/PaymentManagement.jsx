@@ -1,5 +1,6 @@
 // src/pages/Admin/PaymentManagement.jsx
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import Back from "../Back";
 
 const mockTransactions = [
   {
@@ -17,9 +18,9 @@ const mockTransactions = [
       subtotal: "$225.00",
       tax: "$18.50",
       fee: "$5.50",
-      total: "$249.00"
+      total: "$249.00",
     },
-    expires: "12/25"
+    expires: "12/25",
   },
   {
     id: "#TRX-88285",
@@ -36,8 +37,8 @@ const mockTransactions = [
       subtotal: "$89.50",
       tax: "$0.00",
       fee: "$0.00",
-      total: "$89.50"
-    }
+      total: "$89.50",
+    },
   },
   {
     id: "#TRX-88240",
@@ -54,8 +55,8 @@ const mockTransactions = [
       subtotal: "$1,136.36",
       tax: "$102.27",
       fee: "$11.37",
-      total: "$1,250.00"
-    }
+      total: "$1,250.00",
+    },
   },
   {
     id: "#TRX-88112",
@@ -72,13 +73,15 @@ const mockTransactions = [
       subtotal: "$56.00",
       tax: "$0.00",
       fee: "$0.00",
-      total: "$56.00"
-    }
+      total: "$56.00",
+    },
   },
 ];
 
 export default function PaymentManagement() {
-  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [selectedTransaction, setSelectedTransaction] = useState(
+    mockTransactions[0]
+  );
   const [showMobileDetails, setShowMobileDetails] = useState(false);
 
   const handleSelectTransaction = (tx) => {
@@ -103,27 +106,24 @@ export default function PaymentManagement() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6 gap-3">
           <div className="flex items-center gap-3">
-            {isMobile && (
-              <button
-                onClick={closeMobileDetails}
-                className="lg:hidden text-gray-600 hover:text-gray-900"
-              >
-                ← Back
-              </button>
-            )}
+            {isMobile && <Back onClick={closeMobileDetails} />}
             <h3 className="text-lg font-semibold text-gray-800">
               {transaction.id}
             </h3>
           </div>
           <span className="flex items-center space-x-2 whitespace-nowrap">
-            <span className={`w-2 h-2 rounded-full bg-${transaction.dotColor}-500`}></span>
+            <span
+              className={`w-2 h-2 rounded-full bg-${transaction.dotColor}-500`}
+            ></span>
             <span className="text-sm font-medium">{transaction.status}</span>
           </span>
         </div>
 
         {/* Amount & Status */}
         <div className="mb-8">
-          <p className="text-3xl font-bold text-gray-900 mb-2">{transaction.amount}</p>
+          <p className="text-3xl font-bold text-gray-900 mb-2">
+            {transaction.amount}
+          </p>
           <span
             className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium ${
               transaction.status === "Succeeded"
@@ -133,7 +133,9 @@ export default function PaymentManagement() {
                 : "bg-yellow-100 text-yellow-800"
             }`}
           >
-            <span className={`w-2 h-2 rounded-full mr-2 bg-${transaction.dotColor}-500`}></span>
+            <span
+              className={`w-2 h-2 rounded-full mr-2 bg-${transaction.dotColor}-500`}
+            ></span>
             Payment {transaction.status}
           </span>
         </div>
@@ -148,7 +150,9 @@ export default function PaymentManagement() {
             <div>
               <p className="font-medium text-gray-900">{transaction.method}</p>
               {transaction.expires && (
-                <p className="text-sm text-gray-500">Expires {transaction.expires}</p>
+                <p className="text-sm text-gray-500">
+                  Expires {transaction.expires}
+                </p>
               )}
             </div>
           </div>
@@ -178,7 +182,9 @@ export default function PaymentManagement() {
               <span className="text-gray-600">Risk</span>
               <span
                 className={`font-medium ${
-                  transaction.risk === "Normal" ? "text-green-600" : "text-red-600"
+                  transaction.risk === "Normal"
+                    ? "text-green-600"
+                    : "text-red-600"
                 }`}
               >
                 {transaction.risk}
@@ -227,27 +233,36 @@ export default function PaymentManagement() {
 
   return (
     <div className="h-full">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 h-full">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-2 h-full">
         {/* Left: Transactions List - same structure as previous pages */}
         <div
-          className={`lg:col-span-2 ${showMobileDetails ? "hidden" : "block"} h-full overflow-y-auto space-y-6 pr-2`}
+          className={`lg:col-span-2 ${
+            showMobileDetails ? "hidden" : "block"
+          } h-full overflow-y-auto space-y-6 pr-2`}
         >
           {/* Filters & Export */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3 flex-1">
-              <input
-                type="text"
-                placeholder="Search transaction ID or customer..."
-                className="flex-1 min-w-full sm:min-w-64 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-              <select className="w-full sm:w-auto px-4 py-2.5 border border-gray-300 rounded-lg">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            {/* Search */}
+            <input
+              type="text"
+              placeholder="Search transaction ID or customer..."
+              className="w-full sm:flex-1 px-4 py-2 text-sm border border-gray-300 rounded-lg
+               focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            {/* Filters */}
+            <div className="flex w-full gap-2 sm:w-auto">
+              <select className="flex-1 sm:w-36 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
                 <option>All Status</option>
               </select>
-              <select className="w-full sm:w-auto px-4 py-2.5 border border-gray-300 rounded-lg">
+
+              <select className="flex-1 sm:w-40 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
                 <option>Last 30 Days</option>
               </select>
             </div>
-            <button className="w-full sm:w-auto px-6 py-2.5 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 font-medium">
+
+            {/* Export Button */}
+            <button className="w-full sm:w-auto px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 font-medium transition">
               Export History
             </button>
           </div>
@@ -258,7 +273,13 @@ export default function PaymentManagement() {
               <table className="w-full min-w-160">
                 <thead className="bg-gray-50 border-b border-gray-200">
                   <tr>
-                    {["Transaction ID", "Customer", "Date", "Method", "Amount"].map((h) => (
+                    {[
+                      "Transaction ID",
+                      "Customer",
+                      "Date",
+                      "Method",
+                      "Amount",
+                    ].map((h) => (
                       <th
                         key={h}
                         className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
@@ -278,7 +299,9 @@ export default function PaymentManagement() {
                       }`}
                     >
                       <td className="px-4 py-4">
-                        <p className="font-medium text-gray-900 whitespace-nowrap">{tx.id}</p>
+                        <p className="font-medium text-gray-900 whitespace-nowrap">
+                          {tx.id}
+                        </p>
                       </td>
                       <td className="px-4 py-4">
                         <div className="flex items-center space-x-3">
@@ -325,7 +348,10 @@ export default function PaymentManagement() {
       {/* Mobile Full-screen Details */}
       {showMobileDetails && selectedTransaction && (
         <div className="fixed inset-0 z-50 lg:hidden bg-white overflow-y-auto">
-          <TransactionDetails transaction={selectedTransaction} isMobile={true} />
+          <TransactionDetails
+            transaction={selectedTransaction}
+            isMobile={true}
+          />
         </div>
       )}
     </div>

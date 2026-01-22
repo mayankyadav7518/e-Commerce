@@ -1,5 +1,6 @@
 // src/pages/Admin/CustomerManagement.jsx
 import React, { useState } from 'react';
+import Back from '../Back';
 
 const mockCustomers = [
   {
@@ -52,7 +53,7 @@ const mockCustomers = [
 ];
 
 export default function CustomerManagement() {
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [selectedCustomer, setSelectedCustomer] = useState(mockCustomers[0]);
   const [showMobileDetails, setShowMobileDetails] = useState(false);
 
   const handleSelectCustomer = (customer) => {
@@ -78,12 +79,7 @@ export default function CustomerManagement() {
         <div className="flex items-center justify-between mb-6 gap-3">
           <div className="flex items-center gap-3">
             {isMobile && (
-              <button
-                onClick={closeMobileDetails}
-                className="lg:hidden text-gray-600 hover:text-gray-900"
-              >
-                ← Back
-              </button>
+              <Back onClick={closeMobileDetails}/>
             )}
             <h3 className="text-lg font-semibold text-gray-800">
               {customer.name}
@@ -221,29 +217,35 @@ export default function CustomerManagement() {
 
   return (
     <div className="h-full">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 h-full">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-2 h-full">
         {/* Left: Customers List - same structure as Orders/Categories/Products */}
         <div
           className={`lg:col-span-2 ${showMobileDetails ? "hidden" : "block"} h-full overflow-y-auto space-y-6 pr-2`}
         >
-          {/* Filters */}
-          <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-4">
+
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            {/* Search */}
             <input
               type="text"
               placeholder="Search name, email, phone..."
-              className="flex-1 min-w-full sm:min-w-64 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full sm:flex-1 px-4 py-2 text-sm border border-gray-300 rounded-lg
+               focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
-            <select className="w-full sm:w-auto px-4 py-2.5 border border-gray-300 rounded-lg">
-              <option>All Status</option>
-            </select>
-            <select className="w-full sm:w-auto px-4 py-2.5 border border-gray-300 rounded-lg">
-              <option>Newest First</option>
-            </select>
-            <button className="w-full sm:w-auto px-5 py-2.5 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 font-medium">
+
+            {/* Filters */}
+            <div className="flex w-full gap-2 sm:w-auto">
+              <select className="flex-1 sm:w-36 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+                <option>All Status</option>
+              </select>
+
+              <select className="flex-1 sm:w-40 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+                <option>Newest First</option>
+              </select>
+            </div>
+
+            {/* Export Button */}
+            <button className="w-full sm:w-auto px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 font-medium transition">
               Export List
-            </button>
-            <button className="w-full sm:w-auto px-6 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 font-medium">
-              Add Customer
             </button>
           </div>
 

@@ -66,25 +66,6 @@ export default function GuestNavbar() {
 
           {/* Desktop Actions - Guest */}
           <div className="hidden md:flex items-center gap-5">
-            {/* Wishlist (disabled / hint for login) */}
-            <button
-              className="text-gray-400 cursor-not-allowed p-2 rounded-full"
-              aria-label="Wishlist (login required)"
-              title="Login to use wishlist"
-            >
-              <Heart size={22} strokeWidth={2.2} />
-            </button>
-
-            {/* Cart */}
-            <button
-              className="relative text-gray-600 hover:text-teal-600 transition-colors p-2 rounded-full hover:bg-teal-50"
-              aria-label="Shopping Cart"
-            >
-              <ShoppingCart size={22} strokeWidth={2.2} />
-              <span className="absolute -top-1 -right-1 bg-teal-600 text-white text-xs font-medium w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
-                0
-              </span>
-            </button>
 
             {/* Auth Buttons */}
             <div className="flex items-center gap-3">

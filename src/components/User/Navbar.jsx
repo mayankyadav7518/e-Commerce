@@ -46,8 +46,8 @@ export default function Navbar() {
 
   const navClass = ({ isActive }) =>
     isActive
-      ? "px-4 py-2.5 text-teal-700 font-semibold bg-teal-50/60 rounded-lg transition-colors"
-      : "px-4 py-2.5 text-gray-700 hover:text-teal-700 hover:bg-teal-50/40 rounded-lg transition-colors duration-200";
+      ? "px-4 py-2 text-teal-700 font-semibold bg-teal-50/60 border-t border-b rounded-lg transition-colors"
+      : "px-4 py-2 text-gray-700 hover:text-teal-700 hover:bg-teal-50/40 rounded-lg transition-colors duration-200";
 
   const mobileNavClass = ({ isActive }) =>
     isActive
@@ -93,14 +93,16 @@ export default function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-6">
-            <button
+            <NavLink
+              to="/user/wishlist"
               className="text-gray-600 hover:text-teal-600 transition-colors p-2 rounded-full hover:bg-teal-50"
               aria-label="Wishlist"
             >
               <HeartHandshake size={22} strokeWidth={2.2} />
-            </button>
+            </NavLink>
 
-            <button
+            <NavLink
+              to="/user/orders"
               className="relative text-gray-600 hover:text-teal-600 transition-colors p-2 rounded-full hover:bg-teal-50"
               aria-label="Shopping Cart"
             >
@@ -108,7 +110,7 @@ export default function Navbar() {
               <span className="absolute -top-1 -right-1 bg-teal-600 text-white text-xs font-medium w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
                 3
               </span>
-            </button>
+            </NavLink>
 
             {/* Desktop Account Dropdown */}
             <div className="relative" ref={accountRef}>
@@ -173,15 +175,6 @@ export default function Navbar() {
                   >
                     <MapPin size={18} />
                     Addresses
-                  </NavLink>
-
-                  <NavLink
-                    to="/user/payments"
-                    className="flex items-center gap-3 px-5 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 transition-colors"
-                    onClick={() => setIsAccountOpen(false)}
-                  >
-                    <CreditCard size={18} />
-                    Payment Methods
                   </NavLink>
 
                   <hr className="my-2 border-gray-100 mx-3" />
@@ -333,17 +326,6 @@ export default function Navbar() {
                   Addresses
                 </NavLink>
 
-                <NavLink
-                  to="/user/payments"
-                  className="block px-5 py-2 text-gray-700 hover:bg-teal-50 hover:text-teal-700 rounded-lg transition-colors"
-                  onClick={() => {
-                    setIsMobileAccountOpen(false);
-                    setIsMobileOpen(false);
-                  }}
-                >
-                  Payment Methods
-                </NavLink>
-
                 <button
                   onClick={handleLogout}
                   className="block w-full text-left px-5 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
@@ -352,21 +334,6 @@ export default function Navbar() {
                 </button>
               </div>
             )}
-          </div>
-        </div>
-
-        {/* Mobile Quick Actions */}
-        <div className="px-5 py-6 border-t">
-          <div className="flex justify-around">
-            <button className="text-gray-600 hover:text-teal-600 transition-colors">
-              <HeartHandshake size={28} />
-            </button>
-            <button className="relative text-gray-600 hover:text-teal-600 transition-colors">
-              <ShoppingCart size={28} />
-              <span className="absolute -top-2 -right-2 bg-teal-600 text-white text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">
-                3
-              </span>
-            </button>
           </div>
         </div>
       </div>
